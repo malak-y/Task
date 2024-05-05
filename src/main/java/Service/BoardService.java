@@ -21,6 +21,7 @@ public class BoardService {
         Board board = new Board();
         board.setName(name);
         board.setCreator(creator);
+        board.inviteCollaborator(creator);
         entityManager.persist(board);
         return board;
     }
