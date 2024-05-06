@@ -13,7 +13,9 @@ public class TaskList {
     @ManyToOne
     private Board board;
 
-    // Getters and setters
+    @Enumerated(EnumType.STRING)
+    private Status status;
+    
     public Long getId() {
         return id;
     }
@@ -36,5 +38,13 @@ public class TaskList {
 
     public void setBoard(Board board) {
         this.board = board;
+    }
+    
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
