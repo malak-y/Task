@@ -1,6 +1,7 @@
 package Service;
 
 import Model.Board;
+import Model.Status;
 import Model.TaskList;
 
 import javax.ejb.Stateless;
@@ -18,7 +19,19 @@ public class listService {
     
     public TaskList createList(String name, Board board) {
         TaskList list = new TaskList();
-        list.setName(name);
+       name = name.toLowerCase();
+        if( name.equals("done")) {
+        	list.setStatus(Status.DONE);
+        }
+        else if(name.equals("in_progress")) {
+        	list.setStatus(Status.IN_PROGRESS);
+        }
+        else if(name.equals("testing")) {
+        	list.setStatus(Status.TESTING);
+        }
+        else {
+        	list.setStatus(Status.TODO);
+        }
         list.setBoard(board);
         entityManager.persist(list);
         return list;

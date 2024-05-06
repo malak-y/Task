@@ -20,7 +20,7 @@ public class UserService {
             return existingUser; // User with the same email already exists, return the existing user
         }
         if (user.getRole() == null) {  // Set the role provided by the user, or assign DEVELOPER role by default
-            user.setRole(UserRole.DEVELOPER); // Set DEVELOPER role by default
+            user.setRole(UserRole.USER); // Set user role by default
         }
         entityManager.persist(user);
         return user;

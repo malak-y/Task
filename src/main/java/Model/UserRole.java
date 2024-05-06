@@ -1,5 +1,5 @@
 package Model;
 
 public enum UserRole {
-    DEVELOPER, TESTER, TEAM_LEADER
+    USER, TEAM_LEADER
 }

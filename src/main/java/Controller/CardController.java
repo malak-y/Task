@@ -134,13 +134,6 @@ public class CardController {
         if (!boardService.isCollaboratorOnBoard(userId, card.getList().getBoard().getId())) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authorized to add comment to card.").build();
         }
-
-        String existingComments = card.getComments();
-        if (existingComments != null) {
-            existingComments += "\n";
-        }
-        existingComments += comment;
-        card.setComments(existingComments);
         cardService.updateCard(card);
         return Response.ok(card).entity("Comment added to card successfully.").build();
     }

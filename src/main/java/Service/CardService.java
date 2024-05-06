@@ -57,15 +57,11 @@ public class CardService {
         return null; // Return null if the card is not found
     }
 
-    public Card addCommentToCard(Long cardId, String comment) {
+    public Card addCommentToCard(Long cardId) {
         Card card = entityManager.find(Card.class, cardId);
         if (card != null) {
-            String existingComments = card.getComments();
-            if (existingComments != null ) {
-                existingComments += "\n"; 
-            }
-            existingComments += comment;
-            card.setComments(existingComments);
+           
+    
             entityManager.merge(card);
             return card; // Return the updated card
         }

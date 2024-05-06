@@ -1,4 +1,7 @@
 package Model;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -11,7 +14,7 @@ public class Card {
 
     private String description;
 
-    private String comments;
+    public static Map<String, User> comments = new HashMap<String,User >();
 
     @ManyToOne
     private User assignedUser;
@@ -19,8 +22,7 @@ public class Card {
     @ManyToOne
     private TaskList list;
 
-//    @ManyToOne
-//    private Board board; 
+
 
     
     public Long getId() {
@@ -38,15 +40,6 @@ public class Card {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getComments() {
-        return comments;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
-    }
-
     public User getAssignedUser() {
         return assignedUser;
     }
@@ -63,13 +56,6 @@ public class Card {
         this.list = list;
     }
 
-//    public void setBoard(Board board) {
-//        this.board = board;
-//    }
-//    
-//    public Board getBoard() {
-//        return board;
-//    }
 
    
 }
