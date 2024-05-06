@@ -5,9 +5,6 @@ import java.util.List;
 public class Sprint {
     private String id;
     private List<Task> tasks;
-    // Other fields
-
-    // Getters and setters
     public String getId() {
         return id;
     }

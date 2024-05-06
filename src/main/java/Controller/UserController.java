@@ -26,20 +26,6 @@ public class UserController {
  @Inject
  private UserService userService;
 
- /*@POST
- @Path("/register")
- public Response registerUser(User user) {
-     // Check if a user with the provided email already exists
-     User existingUser = userService.getUserByEmail(user.getEmail());
-     if (existingUser != null) {
-         return Response.status(Response.Status.CONFLICT)
-                 .entity("User with email " + user.getEmail() + " already registered.")
-                 .build();
-     }
-
-     User registeredUser = userService.registerUser(user);
-     return Response.ok(registeredUser).build();
- }*/
  @POST
  @Path("/register")
  public Response registerUser(User user) {
@@ -55,7 +41,6 @@ public class UserController {
      // Return the registered user object in the response
      return Response.ok(registeredUser).build();
  }
-
 
  @POST
  @Path("/login")
@@ -82,8 +67,6 @@ public class UserController {
          }
      }
  }
-
-
 
 
  @PUT
@@ -131,6 +114,8 @@ public class UserController {
  @Path("/{userId}")
  public Response deleteUser(@PathParam("userId") Long userId) {
      userService.deleteUser(userId);
-     return Response.ok().build();
+     return Response.status(Response.Status.OK)
+             .entity("User with ID " + userId + " logged out .")
+             .build();
  }
 }
