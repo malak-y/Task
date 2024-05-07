@@ -21,6 +21,8 @@ public class Card {
 
     @ManyToOne
     private TaskList list;
+    private String deadline;
+    private boolean completion=false;
 
 
 
@@ -55,7 +57,15 @@ public class Card {
     public void setList(TaskList list) {
         this.list = list;
     }
-
+    public void setTaskDone() {
+    	completion = true;
+    }
+    public void setdeadline(String deadline) {
+    	this.deadline=deadline;
+    }
+    public String getDeadline() {
+    	return deadline;
+    }
 
    
 }

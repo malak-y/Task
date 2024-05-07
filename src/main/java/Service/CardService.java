@@ -67,6 +67,15 @@ public class CardService {
         }
         return null; // Return null if the card is not found
     }
+   public Card assignDeadline(String date,Long cardId) {
+	   Card card = entityManager.find(Card.class, cardId);
+       if (card != null) {
+           card.setdeadline(date);
+           entityManager.merge(card);
+           return card; // Return the updated card
+       }
+       return null; // Return null if the card is not found
+   }
+   }
 
 
-}

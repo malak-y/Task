@@ -25,17 +25,7 @@ public class BoardController {
     @Inject
     private UserService userService;
 
-    private Response checkTeamLeaderAuthorization(User user) {
-        if (user == null) {
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized access").build();
-        }
-
-        if (user.getRole() != UserRole.TEAM_LEADER) {
-            return Response.status(Response.Status.UNAUTHORIZED).entity("Only team leaders can perform this action").build();
-        }
-
-        return null;
-    }
+   
 
     @POST
     public Response createBoard(@QueryParam("name") String name, @QueryParam("creatorId") Long creatorId) {
@@ -44,7 +34,7 @@ public class BoardController {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
         }
 
-        Response authorizationResponse = checkTeamLeaderAuthorization(creator);
+        Response authorizationResponse = boardService.checkTeamLeaderAuthorization(creator);
         if (authorizationResponse != null) {
             return authorizationResponse;
         }
@@ -62,7 +52,7 @@ public class BoardController {
                     .build();
         }
 
-        Response authorizationResponse = checkTeamLeaderAuthorization(user);
+        Response authorizationResponse = boardService.checkTeamLeaderAuthorization(user);
         if (authorizationResponse != null) {
             return authorizationResponse;
         }
@@ -96,7 +86,7 @@ public class BoardController {
              return Response.status(Response.Status.NOT_FOUND).entity("There is no team leader with entered ID").build();
          }
 
-         Response authorizationResponse = checkTeamLeaderAuthorization(creator);
+         Response authorizationResponse = boardService.checkTeamLeaderAuthorization(creator);
          if (authorizationResponse != null) {
              return authorizationResponse;
          }
@@ -104,7 +94,7 @@ public class BoardController {
          
          if( exsitingUser==null)
         	 return Response.status(Response.Status.NOT_FOUND).entity("User not found ").build();
-         Response Isteamleader = checkTeamLeaderAuthorization(exsitingUser);
+         Response Isteamleader = boardService.checkTeamLeaderAuthorization(exsitingUser);
          if(Isteamleader==null) {
         	 return Response.status(Response.Status.UNAUTHORIZED).entity("User role is a team leader can not be invited").build();
          }

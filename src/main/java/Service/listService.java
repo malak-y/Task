@@ -29,7 +29,7 @@ public class listService {
         else if(name.equals("testing")) {
         	list.setStatus(Status.TESTING);
         }
-        else {
+        else {// by default the list created as TODO list
         	list.setStatus(Status.TODO);
         }
         list.setBoard(board);

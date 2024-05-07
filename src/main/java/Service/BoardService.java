@@ -2,6 +2,7 @@ package Service;
 
 import Model.Board;
 import Model.User;
+import Model.UserRole;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.core.Response;
 
 
 @Stateless
@@ -58,5 +60,16 @@ public class BoardService {
             }
         }
         return false; // User is not a collaborator on this board
+    }
+    public Response checkTeamLeaderAuthorization(User user) {
+        if (user == null) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized access").build();
+        }
+
+        if (user.getRole() != UserRole.TEAM_LEADER) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Only team leaders can perform this action").build();
+        }
+
+        return null;
     }
 }

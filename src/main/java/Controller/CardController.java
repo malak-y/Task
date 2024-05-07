@@ -137,5 +137,26 @@ public class CardController {
         cardService.updateCard(card);
         return Response.ok(card).entity("Comment added to card successfully.").build();
     }
+    @PUT
+    @Path("/setdeadline")
+    public Response setDeadline(@QueryParam("cardId") Long cardId, @QueryParam("userId") Long userId,@QueryParam("deadline") String date) {
+        Card card = cardService.getCardById(cardId);
+        if (card == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Card not found").build();
+        }
+
+        User user = userService.getUserById(userId);
+        if (user == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("There is no team leader with this id").build();
+        }
+        Response response = boardService.checkTeamLeaderAuthorization(user);
+        // Check if the user is a team leader or not
+        if ( !(response==null)){
+            return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authorized to set the deadline of this card.").build();
+        }
+        card.setdeadline(date);
+        cardService.updateCard(card);
+        return Response.ok().entity("Card's deadline is " + card.getDeadline()).build();
+    }
 
 }
