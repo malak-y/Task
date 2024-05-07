@@ -1,11 +1,15 @@
 package Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import Model.Card;
+import Model.Comment;
 import Model.TaskList;
 import Model.User;
 import Service.CardService;
@@ -96,6 +100,10 @@ public class CardController {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
         }
 
+<<<<<<< Updated upstream
+=======
+        
+>>>>>>> Stashed changes
         if (!boardService.isCollaboratorOnBoard(userId, card.getList().getBoard().getId())) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authorized to assign this card.").build();
         }
@@ -122,6 +130,7 @@ public class CardController {
         return Response.ok(card).entity("Card description updated successfully.").build();
     }
 
+<<<<<<< Updated upstream
     @PUT
     @Path("/comments/{cardId}/{userId}")
     public Response addCommentToCard(@PathParam("cardId") Long cardId, String comment, @PathParam("userId") Long userId) {
@@ -144,4 +153,6 @@ public class CardController {
         return Response.ok(card).entity("Comment added to card successfully.").build();
     }
 
+=======
+>>>>>>> Stashed changes
 }

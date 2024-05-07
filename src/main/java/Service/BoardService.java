@@ -48,15 +48,15 @@ public class BoardService {
                 .setParameter("user", user);
         return query.getResultList();
     }
-    public boolean isCollaboratorOnBoard(Long boardId, Long userId) {
+    public boolean isCollaboratorOnBoard(Long userId ,Long boardId) {
         Board board = getBoardById(boardId);
         if (board != null) {
             for (User collaborator : board.getcollaborators()) {
                 if (collaborator.getId().equals(userId)) {
-                    return true; // User is a collaborator on this board
+                    return true; 
                 }
             }
         }
-        return false; // User is not a collaborator on this board
+        return false; 
     }
 }
