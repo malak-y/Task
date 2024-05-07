@@ -19,6 +19,9 @@ public class Card {
     @ManyToOne
     private TaskList list;
 
+//    @ManyToOne
+//    private Board board; 
+
     
     public Long getId() {
         return id;
@@ -59,6 +62,14 @@ public class Card {
     public void setList(TaskList list) {
         this.list = list;
     }
+
+//    public void setBoard(Board board) {
+//        this.board = board;
+//    }
+//    
+//    public Board getBoard() {
+//        return board;
+//    }
 
    
 }

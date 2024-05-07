@@ -18,6 +18,7 @@ public class CardService {
         Card card = new Card();
         card.setDescription(description);
         card.setList(list);
+        //card.setBoard(board);
         entityManager.persist(card);
         return card;
     }
@@ -51,9 +52,9 @@ public class CardService {
         if (card != null) {
             card.setDescription(description);
             entityManager.merge(card);
-            return card; 
+            return card; // Return the updated card
         }
-        return null; 
+        return null; // Return null if the card is not found
     }
 
     public Card addCommentToCard(Long cardId, String comment) {
@@ -66,9 +67,9 @@ public class CardService {
             existingComments += comment;
             card.setComments(existingComments);
             entityManager.merge(card);
-            return card; 
+            return card; // Return the updated card
         }
-        return null; 
+        return null; // Return null if the card is not found
     }
 
 

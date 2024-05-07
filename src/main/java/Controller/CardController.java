@@ -31,8 +31,8 @@ public class CardController {
     private BoardService boardService;
 
     @POST
-    @Path("/{listId}/{userId}")
-    public Response createCard(@PathParam("listId") Long listId, String description, @PathParam("userId") Long userId) {
+    @Path("/{listId}")
+    public Response createCard(@PathParam("listId") Long listId, @QueryParam("description") String description, @QueryParam("userId") Long userId) {
         TaskList list = listService.getListById(listId);
         if (list == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("List not found").build();
@@ -47,8 +47,8 @@ public class CardController {
     }
 
     @PUT
-    @Path("/move/{cardId}/{newListId}/{userId}")
-    public Response moveCardToList(@PathParam("cardId") Long cardId, @PathParam("newListId") Long newListId, @PathParam("userId") Long userId) {
+    @Path("/move/{cardId}/{newListId}")
+    public Response moveCardToList(@PathParam("cardId") Long cardId, @PathParam("newListId") Long newListId, @QueryParam("userId") Long userId) {
         TaskList newList = listService.getListById(newListId);
         if (newList == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("New list not found").build();
@@ -68,8 +68,8 @@ public class CardController {
     }
 
     @DELETE
-    @Path("/{cardId}/{userId}")
-    public Response deleteCard(@PathParam("cardId") Long cardId, @PathParam("userId") Long userId) {
+    @Path("/{cardId}")
+    public Response deleteCard(@PathParam("cardId") Long cardId, @QueryParam("userId") Long userId) {
         Card card = cardService.getCardById(cardId);
         if (card == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Card not found").build();
@@ -84,8 +84,8 @@ public class CardController {
     }
 
     @PUT
-    @Path("assign/{cardId}/{userId}")
-    public Response assignCard(@PathParam("cardId") Long cardId, @PathParam("userId") Long userId) {
+    @Path("assign/{cardId}")
+    public Response assignCard(@PathParam("cardId") Long cardId, @QueryParam("userId") Long userId) {
         Card card = cardService.getCardById(cardId);
         if (card == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Card not found").build();
@@ -96,6 +96,7 @@ public class CardController {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
         }
 
+        // Check if the user is authorized (a collaborator on the associated board)
         if (!boardService.isCollaboratorOnBoard(userId, card.getList().getBoard().getId())) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authorized to assign this card.").build();
         }
@@ -106,8 +107,8 @@ public class CardController {
     }
 
     @PUT
-    @Path("/description/{cardId}/{userId}")
-    public Response updateCardDescription(@PathParam("cardId") Long cardId, String description, @PathParam("userId") Long userId) {
+    @Path("/description/{cardId}")
+    public Response updateCardDescription(@PathParam("cardId") Long cardId, String description, @QueryParam("userId") Long userId) {
         Card card = cardService.getCardById(cardId);
         if (card == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Card not found").build();
@@ -123,8 +124,8 @@ public class CardController {
     }
 
     @PUT
-    @Path("/comments/{cardId}/{userId}")
-    public Response addCommentToCard(@PathParam("cardId") Long cardId, String comment, @PathParam("userId") Long userId) {
+    @Path("/comments/{cardId}")
+    public Response addCommentToCard(@PathParam("cardId") Long cardId, String comment, @QueryParam("userId") Long userId) {
         Card card = cardService.getCardById(cardId);
         if (card == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("Card not found").build();
