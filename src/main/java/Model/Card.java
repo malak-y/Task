@@ -1,11 +1,4 @@
 package Model;
-<<<<<<< Updated upstream
-=======
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
->>>>>>> Stashed changes
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
@@ -18,21 +11,14 @@ public class Card {
 
     private String description;
 
-<<<<<<< Updated upstream
     private String comments;
 
-=======
->>>>>>> Stashed changes
     @ManyToOne
     private User assignedUser;
 
     @ManyToOne
     private TaskList list;
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     
     public Long getId() {
         return id;
@@ -74,11 +60,5 @@ public class Card {
         this.list = list;
     }
 
-<<<<<<< Updated upstream
-=======
-   
-
-
->>>>>>> Stashed changes
    
 }

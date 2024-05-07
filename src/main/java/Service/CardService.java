@@ -1,14 +1,11 @@
 package Service;
 
-import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 
+import Model.Board;
 import Model.Card;
-import Model.Comment;
 import Model.TaskList;
 
 @Stateless
@@ -25,6 +22,7 @@ public class CardService {
         return card;
     }
 
+    
     public void deleteCard(Long cardId) {
         Card card = entityManager.find(Card.class, cardId);
         if (card != null) {
@@ -53,7 +51,6 @@ public class CardService {
         if (card != null) {
             card.setDescription(description);
             entityManager.merge(card);
-<<<<<<< Updated upstream
             return card; 
         }
         return null; 
@@ -72,18 +69,7 @@ public class CardService {
             return card; 
         }
         return null; 
-=======
-            return card;
-        }
-        return null; 
     }
-    
-    public List<Comment> getAllCommentsForCard(Long cardId) {
-        TypedQuery<Comment> query = entityManager.createQuery(
-            "SELECT c FROM Comment c WHERE c.card.id = :cardId", Comment.class);
-        query.setParameter("cardId", cardId);
-        return query.getResultList();
->>>>>>> Stashed changes
-    }
+
 
 }
