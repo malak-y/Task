@@ -122,21 +122,6 @@ public class CardController {
         cardService.updateCard(card);
         return Response.ok(card).entity("Card description updated successfully.").build();
     }
-
-    @PUT
-    @Path("/comments/{cardId}")
-    public Response addCommentToCard(@PathParam("cardId") Long cardId, String comment, @QueryParam("userId") Long userId) {
-        Card card = cardService.getCardById(cardId);
-        if (card == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Card not found").build();
-        }
-
-        if (!boardService.isCollaboratorOnBoard(userId, card.getList().getBoard().getId())) {
-            return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authorized to add comment to card.").build();
-        }
-        cardService.updateCard(card);
-        return Response.ok(card).entity("Comment added to card successfully.").build();
-    }
     @PUT
     @Path("/setdeadline")
     public Response setDeadline(@QueryParam("cardId") Long cardId, @QueryParam("userId") Long userId,@QueryParam("deadline") String date) {

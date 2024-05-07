@@ -13,9 +13,6 @@ public class Card {
     private Long id;
 
     private String description;
-
-    public static Map<String, User> comments = new HashMap<String,User >();
-
     @ManyToOne
     private User assignedUser;
 
