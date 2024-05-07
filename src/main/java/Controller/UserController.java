@@ -36,7 +36,6 @@ public class UserController {
                  .entity("User with email " + user.getEmail() + " already registered.")
                  .build();
      }
-
      User registeredUser = userService.registerUser(user);
      // Return the registered user object in the response
      return Response.ok(registeredUser).build();

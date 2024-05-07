@@ -38,7 +38,7 @@ public class CardController {
             return Response.status(Response.Status.NOT_FOUND).entity("List not found").build();
         }
 
-        if (!boardService.isCollaboratorOnBoard(userId, list.getBoard().getId())) {
+        if (!boardService.isCollaboratorOnBoard(list.getBoard().getId(),userId)) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authorized to create card in this list.").build();
         }
 
@@ -149,9 +149,8 @@ public class CardController {
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("There is no team leader with this id").build();
         }
-        Response response = boardService.checkTeamLeaderAuthorization(user);
-        // Check if the user is a team leader or not
-        if ( !(response==null)){
+        // Check if the user is the creator of this board
+        if ( !card.getList().getBoard().getCreator().getId().equals(user.getId())){
             return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authorized to set the deadline of this card.").build();
         }
         card.setdeadline(date);

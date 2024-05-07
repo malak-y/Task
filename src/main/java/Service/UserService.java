@@ -19,7 +19,7 @@ public class UserService {
         if (existingUser != null) {
             return existingUser; // User with the same email already exists, return the existing user
         }
-        if (user.getRole() == null) {  // Set the role provided by the user, or assign DEVELOPER role by default
+        if (user.getRole() == null || !user.getRole().equals(UserRole.TEAM_LEADER)) {  // Set the role provided by the user
             user.setRole(UserRole.USER); // Set user role by default
         }
         entityManager.persist(user);
