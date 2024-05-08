@@ -1,16 +1,11 @@
 package Service;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
 import javax.ejb.Stateless;
-import javax.inject.Inject;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-import MessageSystem.JMSClient;
-import Model.Card;
 import Model.User;
 import Model.UserRole;
 
@@ -18,8 +13,6 @@ import Model.UserRole;
 public class UserService {
     @PersistenceContext
     private EntityManager entityManager;
-   /*@Inject
-   private JMSClient receiver;*/
    public User registerUser(User user) {
         // Check if a user with the provided email already exists
         User existingUser = getUserByEmail(user.getEmail());
@@ -72,12 +65,4 @@ public class UserService {
             return null;
         }
     }
-   /* public boolean isdeadlineExpired(Card card) {
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyy");
-        String formattedDate = dateFormat.format(currentDate);
-        if(currentDate>card.getDeadline()) {
-        	
-        }
-    }*/
 }
