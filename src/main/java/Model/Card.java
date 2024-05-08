@@ -1,6 +1,4 @@
 package Model;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.*;
@@ -19,6 +17,8 @@ public class Card {
     @ManyToOne
     private TaskList list;
     private String deadline;
+    @OneToOne(fetch = FetchType.EAGER)
+    private User creator;
     private boolean completion=false;
 
 
@@ -63,6 +63,8 @@ public class Card {
     public String getDeadline() {
     	return deadline;
     }
-
+    public void setCreator(User creator) {
+    	this.creator = creator;
+    }
    
 }

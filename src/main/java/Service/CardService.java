@@ -11,6 +11,7 @@ import Model.Board;
 import Model.Card;
 import Model.Comment;
 import Model.TaskList;
+import Model.User;
 
 @Stateless
 public class CardService {
@@ -18,11 +19,11 @@ public class CardService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Card createCard(String description, TaskList list ) {
+    public Card createCard(String description, TaskList list,User user ) {
         Card card = new Card();
         card.setDescription(description);
         card.setList(list);
-        //card.setBoard(board);
+        card.setCreator(user);
         entityManager.persist(card);
         return card;
     }
