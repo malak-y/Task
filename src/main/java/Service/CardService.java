@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import Model.Board;
 import Model.Card;
 import Model.TaskList;
+import Model.User;
 
 @Stateless
 public class CardService {
@@ -14,11 +15,11 @@ public class CardService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Card createCard(String description, TaskList list ) {
+    public Card createCard(String description, TaskList list,User user ) {
         Card card = new Card();
         card.setDescription(description);
         card.setList(list);
-        //card.setBoard(board);
+        card.setCreator(user);
         entityManager.persist(card);
         return card;
     }
@@ -56,6 +57,7 @@ public class CardService {
         }
         return null; // Return null if the card is not found
     }
+<<<<<<< Updated upstream
 
     public Card addCommentToCard(Long cardId, String comment) {
         Card card = entityManager.find(Card.class, cardId);
@@ -73,4 +75,20 @@ public class CardService {
     }
 
 
+=======
+   public Card assignDeadline(String date,Long cardId) {
+	   Card card = entityManager.find(Card.class, cardId);
+       if (card != null) {
+           card.setdeadline(date);
+           entityManager.merge(card);
+           return card; // Return the updated card
+       }
+       return null; // Return null if the card is not found
+   }
+public List<Comment> getAllCommentsForCard(Long cardId){
+	TypedQuery<Comment> query = entityManager.createQuery("SELECT c FROM Comment c WHERE c.card.id = :cardId", Comment.class); 
+	query.setParameter("cardId", cardId); 
+   return query.getResultList();
+}
+>>>>>>> Stashed changes
 }

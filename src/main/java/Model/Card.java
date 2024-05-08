@@ -18,6 +18,14 @@ public class Card {
 
     @ManyToOne
     private TaskList list;
+<<<<<<< Updated upstream
+=======
+    private String deadline;
+    @OneToOne(fetch = FetchType.EAGER)
+    private User creator;
+    private boolean completion=false;
+
+>>>>>>> Stashed changes
 
 //    @ManyToOne
 //    private Board board; 
@@ -62,6 +70,7 @@ public class Card {
     public void setList(TaskList list) {
         this.list = list;
     }
+<<<<<<< Updated upstream
 
 //    public void setBoard(Board board) {
 //        this.board = board;
@@ -71,5 +80,19 @@ public class Card {
 //        return board;
 //    }
 
+=======
+    public void setTaskDone() {
+    	completion = true;
+    }
+    public void setdeadline(String deadline) {
+    	this.deadline=deadline;
+    }
+    public String getDeadline() {
+    	return deadline;
+    }
+    public void setCreator(User creator) {
+    	this.creator = creator;
+    }
+>>>>>>> Stashed changes
    
 }

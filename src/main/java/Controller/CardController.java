@@ -37,12 +37,21 @@ public class CardController {
         if (list == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("List not found").build();
         }
+<<<<<<< Updated upstream
 
         if (!boardService.isCollaboratorOnBoard(userId, list.getBoard().getId())) {
+=======
+        User creator = userService.getUserById(userId);
+        if (creator == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+        }
+        if (!boardService.isCollaboratorOnBoard(list.getBoard().getId(),userId)) {
+>>>>>>> Stashed changes
             return Response.status(Response.Status.UNAUTHORIZED).entity("User is not authorized to create card in this list.").build();
         }
+        
 
-        Card newCard = cardService.createCard(description, list);
+        Card newCard = cardService.createCard(description, list,creator);
         return Response.ok(newCard).build();
     }
 
