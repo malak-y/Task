@@ -8,7 +8,12 @@ public class TaskList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+<<<<<<< Updated upstream
     private String name;
+=======
+    @ManyToOne
+    private Sprint sprint;
+>>>>>>> Stashed changes
 
     @ManyToOne
     private Board board;
@@ -37,4 +42,21 @@ public class TaskList {
     public void setBoard(Board board) {
         this.board = board;
     }
+<<<<<<< Updated upstream
+=======
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+    public Sprint getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
+    }
+>>>>>>> Stashed changes
 }

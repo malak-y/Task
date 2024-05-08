@@ -19,16 +19,24 @@ public class Card {
     @ManyToOne
     private TaskList list;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+    
+>>>>>>> Stashed changes
     private String deadline;
     @OneToOne(fetch = FetchType.EAGER)
     private User creator;
     private boolean completion=false;
 
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 
 //    @ManyToOne
 //    private Board board; 
+=======
+    private int storyPoints;
+>>>>>>> Stashed changes
 
     
     public Long getId() {
@@ -92,6 +100,17 @@ public class Card {
     }
     public void setCreator(User creator) {
     	this.creator = creator;
+    }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+    
+    public int getStoryPoints() {
+        return storyPoints;
+    }
+
+    public void setStoryPoints(int storyPoints) {
+        this.storyPoints = storyPoints;
     }
 >>>>>>> Stashed changes
    
