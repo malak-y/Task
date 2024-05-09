@@ -3,7 +3,7 @@ package Model;
 import javax.ejb.Stateless;
 import javax.persistence.*;
 
-@Stateless
+
 @Entity
 public class Card {
     @Id
@@ -14,6 +14,7 @@ public class Card {
     @ManyToOne
     private User assignedUser;
 
+    private int storyPoints;
     @ManyToOne
     private TaskList list;
     private String deadline;
@@ -65,6 +66,13 @@ public class Card {
     }
     public void setCreator(User creator) {
     	this.creator = creator;
+    }
+    public int getStoryPoints() {
+        return storyPoints;
+    }
+
+    public void setStoryPoints(int storyPoints) {
+        this.storyPoints = storyPoints;
     }
    
 }

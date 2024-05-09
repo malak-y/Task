@@ -1,23 +1,39 @@
 package Model;
-
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Sprint {
-    private String id;
-    private List<Task> tasks;
-    public String getId() {
+	
+	 @Id
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	 private Long id;
+    
+    @Enumerated(EnumType.STRING)
+    private SprintStatus sprintStatus; 
+    
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public SprintStatus getSprintStatus() {
+        return sprintStatus;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public void setSprintStatus(SprintStatus sprintStatus) {
+        this.sprintStatus = sprintStatus;
     }
+	
+
 }

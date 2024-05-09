@@ -1,10 +1,12 @@
 package Controller;
 
 import Model.Board;
+import Model.Sprint;
 import Model.TaskList;
 import Model.User;
 import Model.UserRole;
 import Service.BoardService;
+import Service.SprintService;
 import Service.UserService;
 import Service.listService;
 
@@ -26,6 +28,9 @@ public class listController {
 
     @Inject
     private BoardService boardService;
+    
+    @Inject
+    private SprintService sprintService;
     
     private Response checkTeamLeaderAuthorization(User user) {
         if (user == null) {
@@ -56,8 +61,23 @@ public class listController {
             return Response.status(Response.Status.NOT_FOUND).entity("Board not found").build();
         }
 
-        TaskList newList = listservice.createList(name, board);
-        return Response.ok(newList).build();
+        try {
+            Sprint sprint = sprintService.getOpenedStatus();
+            if (sprint == null) {
+            	sprint = sprintService.startNewSprint(); 
+            }
+
+            TaskList list = listservice.getListById((long) 1);
+            if (list == null) {
+                list = listservice.createList(name, board, sprint);
+            } else {
+                list = listservice.createList(name, board, sprint);
+            }
+
+            return Response.ok(list).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Error occurred: " + e.getMessage()).build();
+        }
     }
 
     @DELETE

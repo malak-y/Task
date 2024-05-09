@@ -8,7 +8,8 @@ public class TaskList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
+    @ManyToOne
+    private Sprint sprint;
 
     @ManyToOne
     private Board board;
@@ -37,5 +38,13 @@ public class TaskList {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+    
+    public Sprint getSprint() {
+        return sprint;
+    }
+
+    public void setSprint(Sprint sprint) {
+        this.sprint = sprint;
     }
 }

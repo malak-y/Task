@@ -32,7 +32,7 @@ public class CardController {
 
     @POST
     @Path("/{listId}")
-    public Response createCard(@PathParam("listId") Long listId, @QueryParam("description") String description, @QueryParam("userId") Long userId) {
+    public Response createCard(@PathParam("listId") Long listId, @QueryParam("description") String description, @QueryParam("userId") Long userId ,@QueryParam("storyPoints") int storyPoints ) {
         TaskList list = listService.getListById(listId);
         if (list == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("List not found").build();
@@ -46,7 +46,7 @@ public class CardController {
         }
         
 
-        Card newCard = cardService.createCard(description, list,creator);
+        Card newCard = cardService.createCard(description, list,creator , storyPoints);
         return Response.ok(newCard).build();
     }
 
