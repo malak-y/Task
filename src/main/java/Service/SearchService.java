@@ -51,6 +51,7 @@ public class SearchService {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
+			        	if (card.getAssignedUser()!=null)
 			        	client.sendMessage("Notification -> There is a new message to "+card.getAssignedUser().getName()+" please finish this task with this id ::"+card.getId()+" before the deadline "+card.getDeadline());
 			        }
 		         return query.getResultList();

@@ -9,8 +9,9 @@ public class TaskList {
     private Long id;
 
     @ManyToOne
+	@JoinColumn(name="sprintID")
     private Sprint sprint;
-
+    
     @ManyToOne
     private Board board;
     @Enumerated(EnumType.STRING)

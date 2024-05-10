@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Sprint {
@@ -22,6 +23,8 @@ public class Sprint {
     public Long getId() {
         return id;
     }
+    @OneToMany(mappedBy="sprint")
+    private List<TaskList> tasklist;
 
     public void setId(Long id) {
         this.id = id;
