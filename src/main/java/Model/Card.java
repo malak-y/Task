@@ -1,6 +1,5 @@
 package Model;
 
-import javax.ejb.Stateless;
 import javax.persistence.*;
 
 
@@ -22,9 +21,6 @@ public class Card {
     private User creator;
     private boolean completion=false;
 
-
-
-    
     public Long getId() {
         return id;
     }
@@ -67,12 +63,18 @@ public class Card {
     public void setCreator(User creator) {
     	this.creator = creator;
     }
+    public String getCreatorname() {
+    	return creator.getName();
+    }
     public int getStoryPoints() {
         return storyPoints;
     }
 
     public void setStoryPoints(int storyPoints) {
         this.storyPoints = storyPoints;
+    }
+    public boolean getCardStatus() {
+    	return completion;
     }
    
 }

@@ -81,4 +81,16 @@ public class SearchController {
                        .entity("No results")
                        .build();
     }
+    @GET
+    @Path("/forUnfinishedtask")
+    public Response getUnfinishedcards() {
+        List<Card> tasks = searchService.SearchForCardByStatus(false);
+        if(!tasks.isEmpty()) {
+            return Response.ok(tasks).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND)
+                       .entity("No results")
+                       .build();
+    }
+    
 }
