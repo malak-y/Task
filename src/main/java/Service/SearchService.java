@@ -41,7 +41,7 @@ public class SearchService {
 		         query.setParameter("creator", user);
 		         return query.getResultList();
 				}
-	public List<Card> SearchForCardBydeadline(String deadline) {
+	public List<Card> SearchForCardBydeadline(String deadline) throws NullPointerException  {
 		TypedQuery<Card> query =  entityManager.createQuery(
 				"SELECT c FROM Card c WHERE c.deadline = :deadline", Card.class);
 		         query.setParameter("deadline", deadline);
@@ -51,7 +51,7 @@ public class SearchService {
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
-			        	client.sendMessage("Notification -> There is a new message to "+card.getAssignedUser().getName()+"please finish this task with this id ::"+card.getId()+" before the deadline"+card.getDeadline());
+			        	client.sendMessage("Notification -> There is a new message to "+card.getAssignedUser().getName()+" please finish this task with this id ::"+card.getId()+" before the deadline "+card.getDeadline());
 			        }
 		         return query.getResultList();
 				}
@@ -65,8 +65,14 @@ public class SearchService {
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-		        	client.sendMessage("Notification -> There is a new message to "+card.getCreatorname()+"Take care this task with this id ::"+card.getId()+" is not completed");
+		        	client.sendMessage("Notification -> There is a new message to "+card.getCreatorname()+" Take care this task with this id ::"+card.getId()+" is not completed");
 		        }
+		         return query.getResultList();
+				}
+	public List<Card> SearchForCardBytitle(String title) {
+		TypedQuery<Card> query =  entityManager.createQuery(
+				"SELECT c FROM Card c WHERE c.title = :title", Card.class);
+		         query.setParameter("title", title);
 		         return query.getResultList();
 				}
 	

@@ -7,6 +7,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -92,5 +93,17 @@ public class SearchController {
                        .entity("No results")
                        .build();
     }
+    @GET
+    @Path("/bytitle")
+    public Response getUncardsbytitle(@QueryParam ("title")String title) {
+        List<Card> tasks = searchService.SearchForCardBytitle(title);
+        if(!tasks.isEmpty()) {
+            return Response.ok(tasks).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND)
+                       .entity("No results")
+                       .build();
+    }
+    
     
 }

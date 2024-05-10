@@ -8,8 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
-import Model.Board;
 import Model.Card;
 import Model.Comment;
 import Model.TaskList;
@@ -87,6 +85,15 @@ public class CardService {
         } catch (NoResultException e) {
             return Collections.emptyList(); 
         }
+    }
+	public Card updateCardtitle(Long cardId, String title) {
+        Card card = entityManager.find(Card.class, cardId);
+        if (card != null) {
+            card.setTitle(title);
+            entityManager.merge(card);
+            return card; // Return the updated card
+        }
+        return null; // Return null if the card is not found
     }
 }
 

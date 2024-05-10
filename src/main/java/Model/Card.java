@@ -20,6 +20,7 @@ public class Card {
     @OneToOne(fetch = FetchType.EAGER)
     private User creator;
     private boolean completion=false;
+    private String title;
 
     public Long getId() {
         return id;
@@ -76,5 +77,13 @@ public class Card {
     public boolean getCardStatus() {
     	return completion;
     }
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
    
 }
