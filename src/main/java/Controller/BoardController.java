@@ -6,7 +6,9 @@ import Model.UserRole;
 import Service.BoardService;
 import Service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -40,7 +42,14 @@ public class BoardController {
         }
 
         Board board = boardService.createBoard(name, creator);
-        return Response.ok(board).build();
+        
+        Map<String, Object> BoardReport = new HashMap<>();
+  
+        BoardReport.put("Board Id",board.getId());
+        BoardReport.put("Board Creator",board.getCreator());
+        BoardReport.put("Board Collaborators",boardService.getCollaboratorNamesByBoardId(creatorId));
+        return Response.status(Response.Status.OK).entity(BoardReport).build();
+        //return Response.ok(board).build();
     }
     @DELETE
     @Path("/{boardId}")

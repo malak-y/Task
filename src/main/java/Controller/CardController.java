@@ -1,5 +1,8 @@
 package Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -32,7 +35,7 @@ public class CardController {
 
     @POST
     @Path("/{listId}")
-    public Response createCard(@PathParam("listId") Long listId, @QueryParam("description") String description, @QueryParam("userId") Long userId ,@QueryParam("storyPoints") int storyPoints ) {
+    public Response createCard(@PathParam("listId") Long listId, @QueryParam("description") String description, @QueryParam("title")String title ,@QueryParam("userId") Long userId ,@QueryParam("storyPoints") int storyPoints ) {
         TaskList list = listService.getListById(listId);
         if (list == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("List not found").build();
@@ -46,8 +49,21 @@ public class CardController {
         }
         
 
-        Card newCard = cardService.createCard(description, list,creator , storyPoints);
-        return Response.ok(newCard).build();
+        Card newCard = cardService.createCard(description, list,creator , storyPoints , title);
+        
+        Map<String, Object> CardReport = new HashMap<>();
+        CardReport.put("Card Id", newCard.getId());
+        CardReport.put("Description", newCard.getDescription());
+        CardReport.put("TaskList Id", newCard.getList().getId());
+        CardReport.put("TaskList status",newCard.getList().getStatus());
+        CardReport.put("sprint ",newCard.getList().getSprint());
+        CardReport.put("Board Id",newCard.getList().getBoard().getId());
+        CardReport.put("Assigned User", newCard.getAssignedUser());
+        CardReport.put("Title", newCard.getTitle());
+        CardReport.put("StoryPoints", newCard.getStoryPoints());
+
+        return Response.status(Response.Status.OK).entity(CardReport).build();
+       // return Response.ok(newCard).build();
     }
 
     @PUT
@@ -124,7 +140,7 @@ public class CardController {
 
         card.setDescription(description);
         cardService.updateCard(card);
-        return Response.ok(card).entity("Card description updated successfully.").build();
+        return Response.ok().entity("Card description updated successfully.").build();
     }
     @PUT
     @Path("/setdeadline")
@@ -159,7 +175,30 @@ public class CardController {
         }
         card.setTitle(title);
         cardService.updateCard(card);
-        return Response.ok(card).entity("Card title added successfully.").build();
+        return Response.ok().entity("Card title added successfully.").build();
+    }
+    
+    @GET
+    @Path("/{cardId}")
+    public Response getCardById(@PathParam("cardId") Long cardId) {
+        Card card = cardService.getCardById(cardId);
+        if (card == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Card not found").build();
+        }
+
+        Map<String, Object> cardInfo = new HashMap<>();
+        cardInfo.put("Card Id", card.getId());
+        cardInfo.put("Description", card.getDescription());
+        cardInfo.put("TaskList Id", card.getList().getId());
+        cardInfo.put("TaskList status", card.getList().getStatus());
+        cardInfo.put("Sprint", card.getList().getSprint());
+        cardInfo.put("Board Id", card.getList().getBoard().getId());
+        cardInfo.put("Assigned User", card.getAssignedUser());
+        cardInfo.put("Title", card.getTitle());
+        cardInfo.put("StoryPoints", card.getStoryPoints());
+
+
+        return Response.ok(cardInfo).build();
     }
 
 }

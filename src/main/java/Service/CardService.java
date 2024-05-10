@@ -19,12 +19,13 @@ public class CardService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Card createCard(String description, TaskList list,User user ,int storyPoints ) {
+    public Card createCard(String description, TaskList list,User user ,int storyPoints , String title) {
         Card card = new Card();
         card.setDescription(description);
         card.setList(list);
         card.setCreator(user);
         card.setStoryPoints( storyPoints) ;
+        card.setTitle(title);
         entityManager.persist(card);
         return card;
     }
