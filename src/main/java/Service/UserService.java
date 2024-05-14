@@ -26,18 +26,18 @@ public class UserService {
         return user;
     }
 
-    public User login(String email, String password) {
+    public boolean login(String email, String password) {
         try {
             User user = entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
                     .setParameter("email", email)
                     .getSingleResult();
             if (user.getPassword().equals(password)) {
-                return user;
+                return true;
             }
         } catch (NoResultException e) {
             // User not found
         }
-        return null; // Invalid credentials
+        return false; // Invalid credentials
     }
 
     public User updateUser(User user) {

@@ -25,7 +25,6 @@ public class BoardController {
     @Inject
     private UserService userService;
 
-   
 
     @POST
     public Response createBoard(@QueryParam("name") String name, @QueryParam("creatorId") Long creatorId) {
@@ -108,7 +107,12 @@ public class BoardController {
     public Response getBoardsByUser(@PathParam("userId") Long userId, @QueryParam("requesterId") Long requesterId) {
         // Check if the requester is a team leader
         User requester = userService.getUserById(requesterId);
-        if (requester == null || requester.getRole() != UserRole.TEAM_LEADER) {
+        if(requester == null) {
+        	 return Response.status(Response.Status.NOT_FOUND)
+                     .entity("No teamleadr found with this id.")
+                     .build();
+        }
+        if ( requester.getRole() != UserRole.TEAM_LEADER) {
             return Response.status(Response.Status.UNAUTHORIZED)
                     .entity("Only team leaders can view user boards.")
                     .build();

@@ -7,18 +7,14 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-
 import Model.Card;
 import Model.Sprint;
-
 import Model.SprintStatus;
 import Model.Status;
-import Model.Task;
 import Model.TaskList;
 import Service.CardService;
 import Service.SprintService;
 import Service.listService;
-
 @Path("/sprints")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
@@ -37,8 +33,6 @@ public class SprintController {
     public SprintController() {
         this.sprintService = new SprintService();
     }
-
-
 
     @POST
     @Path("/{sprintId}/end")
@@ -59,7 +53,6 @@ public class SprintController {
             if (sprintLists.isEmpty()) {
                 return Response.status(Response.Status.NOT_FOUND).entity("No task lists found for the sprint").build();
             }
-
             for (TaskList list : sprintLists) {
                 if (list.getStatus() != Status.DONE) {
                     list.setSprint(newSprint);
@@ -102,8 +95,6 @@ public class SprintController {
                     }
                 }
             }
-
-
             Map<String, Object> sprintReport = new HashMap<>();
             sprintReport.put("SprintId", sprint.getId());
             sprintReport.put("SprintName", sprint.getSprintStatus());

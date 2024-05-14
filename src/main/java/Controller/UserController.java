@@ -2,7 +2,7 @@ package Controller;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -44,29 +44,18 @@ public class UserController {
  @POST
  @Path("/login")
  public Response login(@QueryParam("email") String email, @QueryParam("password") String password) {
-     User user = userService.login(email, password);
-     if (user != null) {
+     boolean validlogin = userService.login(email, password);
+     if (validlogin) {
          // User successfully logged in
          return Response.ok()
-                 .entity(user) // Return the user object in the response
+                 .entity("User logged in successfully") // Return the user object in the response
                  .build();
      } else {
-         // Check if the email exists in the database
-         User existingUser = userService.getUserByEmail(email);
-         if (existingUser != null) {
-             // Email exists, so the password must be incorrect
-             return Response.status(Response.Status.UNAUTHORIZED)
-                     .entity("Incorrect password.")
-                     .build();
-         } else {
-             // Email doesn't exist, so the user is not registered
-             return Response.status(Response.Status.UNAUTHORIZED)
-                     .entity("User with email " + email + " not registered.")
-                     .build();
-         }
-     }
+    	  return Response.ok()
+                  .entity("Invalid credentials") // Return the user object in the response
+                  .build();
  }
-
+ }
 
  @PUT
  @Path("/{userId}")
@@ -106,15 +95,5 @@ public class UserController {
                  .entity("User with ID " + userId + " not registered.")
                  .build();
      }
- }
-
-
- @DELETE
- @Path("/{userId}")
- public Response deleteUser(@PathParam("userId") Long userId) {
-     userService.deleteUser(userId);
-     return Response.status(Response.Status.OK)
-             .entity("User with ID " + userId + " logged out .")
-             .build();
  }
 }

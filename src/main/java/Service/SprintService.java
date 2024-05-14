@@ -21,14 +21,9 @@ import Model.TaskList;
 @Stateless
 
 public class SprintService {
-//   // private Map<Integer, Sprint> sprints;
-//    private int currentSprintId;
-
     @PersistenceContext
     private EntityManager entityManager;
     
-    
-
     public Sprint startNewSprint() {
        
         Sprint sprint = new Sprint();
@@ -37,15 +32,6 @@ public class SprintService {
         
         return sprint;
     }
-
-//    public Sprint endSprint(Long sprintId) {
-//    	Sprint oldSprint = new Sprint();
-//    	oldSprint = getSprintById(sprintId);
-//    	TaskList list = new TaskList();
-//    	List<TaskList> sprintLists = list.
-//        return sprint;
-//    }
-
     
     public Sprint getSprintById(Long sprintId) {
         try {
@@ -67,27 +53,6 @@ public class SprintService {
             return null; 
         }
     }
-//   
-//    public SprintReport generateSprintReport(Long sprintId) {
-//        Sprint sprint = getSprintById(sprintId);
-//      // Map<Status, Integer> taskCountByStatus = new HashMap<>();
-//        int totalCompletedStoryPoints = 0;
-//        int totalUncompletedStoryPoints = 0;
-//
-//        for (Task task : sprint.getTasks()) {
-//            switch (task.getStatus()) {
-//                case DONE:
-//                    totalCompletedStoryPoints += task.getStoryPoints();
-//                    break;
-//                default:
-//                    totalUncompletedStoryPoints += task.getStoryPoints();
-//                    break;
-//            }
-//            taskCountByStatus.put(task.getStatus(), taskCountByStatus.getOrDefault(task.getStatus(), 0) + 1);
-//        }
-//
-//        return new SprintReport(sprintId, taskCountByStatus, totalCompletedStoryPoints, totalUncompletedStoryPoints);
-//    }
 
    
 }
