@@ -61,14 +61,6 @@ public class BoardService {
         }
         return false; // User is not a collaborator on this board
     }
-    
-    public List<String> getCollaboratorNamesByBoardId(Long boardId) {
-        TypedQuery<String> query = entityManager.createQuery(
-                "SELECT u.name FROM Board b JOIN b.collaborators u WHERE b.id = :boardId", String.class)
-                .setParameter("boardId", boardId);
-        return query.getResultList();
-    }
-    
     public Response checkTeamLeaderAuthorization(User user) {
         if (user == null) {
             return Response.status(Response.Status.UNAUTHORIZED).entity("Unauthorized access").build();
